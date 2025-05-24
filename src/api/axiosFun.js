@@ -45,7 +45,8 @@ const req = (method, url, params) => {
       'Content-Type': 'application/json', // 设置请求头为 application/json
       token: localStorage.getItem('logintoken')
     },
-    data: JSON.stringify(params), // 将数据转换为 JSON 字符串
+    [method.toLowerCase() === 'get' ? 'params' : 'data']: params
+    // data: JSON.stringify(params), // 将数据转换为 JSON 字符串
   }).then(res => res.data);
 };
 

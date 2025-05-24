@@ -36,19 +36,19 @@
       </el-table-column>
       <el-table-column align="center" sortable prop="deptName" label="公司" width="120">
       </el-table-column>
-      <el-table-column align="center" sortable prop="userName" label="用户名" width="120">
+      <el-table-column align="center" sortable prop="username" label="用户名" width="120">
       </el-table-column>
-      <el-table-column align="center" sortable prop="userRealName" label="姓名" width="120">
+      <el-table-column align="center" sortable prop="name" label="姓名" width="120">
       </el-table-column>
-      <el-table-column align="center" sortable prop="userMobile" label="手机号" width="120">
+      <el-table-column align="center" sortable prop="phone" label="手机号" width="120">
       </el-table-column>
-      <el-table-column align="center" sortable prop="userSex" label="性别" min-width="50">
+      <el-table-column align="center" sortable prop="gender" label="性别" min-width="50">
       </el-table-column>
-      <el-table-column align="center" sortable prop="userEmail" label="邮件" min-width="120">
+      <el-table-column align="center" sortable prop="email" label="邮件" min-width="120">
       </el-table-column>
-      <el-table-column align="center" sortable prop="editTime" label="修改时间" min-width="120">
+      <el-table-column align="center" sortable prop="lastModifiedTime" label="修改时间" min-width="120">
         <template slot-scope="scope">
-          <div>{{ scope.row.editTime|timestampToTime }}</div>
+          <div>{{ scope.row.lastModifiedTime|timestampToTime }}</div>
         </template>
       </el-table-column>
       <el-table-column align="center" sortable prop="isLock" label="状态" min-width="50">
@@ -58,14 +58,14 @@
           </el-switch>
         </template>
       </el-table-column>
-      <el-table-column label="操作" min-width="300">
+      <el-table-column label="操作" min-width="200">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
           <el-button size="mini" type="danger" @click="deleteUser(scope.$index, scope.row)">删除</el-button>
           <el-button size="mini" type="success" @click="resetpwd(scope.$index, scope.row)">重置密码</el-button>
           <el-button size="mini" type="success" @click="dataAccess(scope.$index, scope.row)">数据权限</el-button>
-          <el-button size="mini" type="success" @click="offlineUser(scope.$index, scope.row)">下线</el-button>
-          <el-button size="mini" type="success" @click="refreshCache(scope.$index, scope.row)">刷新缓存</el-button>
+          <!-- <el-button size="mini" type="success" @click="offlineUser(scope.$index, scope.row)">下线</el-button> -->
+          <!-- <el-button size="mini" type="success" @click="refreshCache(scope.$index, scope.row)">刷新缓存</el-button> -->
         </template>
       </el-table-column>
     </el-table>
@@ -220,10 +220,10 @@ export default {
       formInline: {
         currentPage: 1,
         pageSize: 10,
-        deptId: '',
+        // deptId: '',
         username: '',
         phone: '',
-        isLock: ''
+        // isLock: ''
       },
       //用户数据
       userData: [],
@@ -259,6 +259,8 @@ export default {
    * 创建完毕
    */
   created() {
+//    console.log("打印 this.formInline")
+//    console.log(JSON.stringify(this.formInline))
     this.getdata(this.formInline)
   },
 
@@ -273,6 +275,8 @@ export default {
        * 调用接口，注释上面模拟数据 取消下面注释
        */
       // 获取用户列表
+      console.log("params")
+      console.log(parameter)
       userList(parameter).then(res => {
         this.loading = false
         if (res.code !== 200) {
@@ -281,6 +285,7 @@ export default {
             message: res.message
           })
         } else {
+          // console.log(res.data)
           this.userData = res.data.list
           console.log(this.userData)
           // 分页赋值

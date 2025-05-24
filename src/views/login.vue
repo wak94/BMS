@@ -95,6 +95,7 @@ export default {
               setTimeout(() => {
                 this.logining = false
                 // 缓存token
+                console.log(res.data)
                 localStorage.setItem('logintoken', res.data.token)
                 // 缓存用户个人信息
                 localStorage.setItem('userdata', JSON.stringify(res.data.user))
