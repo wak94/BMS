@@ -95,10 +95,11 @@ export default {
               setTimeout(() => {
                 this.logining = false
                 // 缓存token
+                console.log("登录返回的数据")
                 console.log(res.data)
                 localStorage.setItem('logintoken', res.data.token)
                 // 缓存用户个人信息
-                localStorage.setItem('userdata', JSON.stringify(res.data.user))
+                localStorage.setItem('userdata', res.data.user)
                 this.$store.commit('login', 'true')
                 this.$router.push({ path: '/goods/Goods' })
               }, 1000)

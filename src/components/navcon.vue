@@ -24,12 +24,21 @@ export default {
       collapsed: true,
       imgshow: require('../assets/img/show.png'),
       imgsq: require('../assets/img/sq.png'),
-      user: {}
+      user: {
+        id: null,
+        username: ''
+      }
     }
   },
   // 创建完毕状态(里面是操作)
   created() {
     this.user = JSON.parse(localStorage.getItem('userdata'))
+    console.log('navcon')
+    for (const key in this.user) {
+      console.log(`key: ${key}, value: ${this.user[key]}`);
+    }
+    // console.log(this.user)
+    // console.log(this.user.username)
   },
   methods: {
     // 退出登录
